@@ -1,0 +1,24 @@
+# FTC Scam Database Backup Package
+FROM alpine:latest
+
+# Add metadata
+LABEL org.opencontainers.image.title="FTC Scam Database Backup"
+LABEL org.opencontainers.image.description="PostgreSQL database backup with 6.45M FTC scam complaint records (2022-2025)"
+LABEL org.opencontainers.image.version="1.0.0"
+LABEL org.opencontainers.image.source="https://github.com/janem168/ftc-scam-database"
+LABEL org.opencontainers.image.licenses="MIT"
+LABEL org.opencontainers.image.url="https://github.com/janem168/ftc-scam-database"
+LABEL org.opencontainers.image.vendor="FTC Data Project"
+
+# Copy the backup file
+COPY ftc_database_backup.dump /backup/ftc_database_backup.dump
+
+# Add documentation
+COPY PACKAGE_README.md /README.md
+
+# Set working directory
+WORKDIR /backup
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD test -f /backup/ftc_database_backup.dump || exit 1

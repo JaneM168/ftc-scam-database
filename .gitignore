@@ -11,6 +11,11 @@ ENV/
 # Downloads and data
 downloads/
 *.csv
+
+# Large backup files (use GitHub Packages instead)
+ftc_database_backup.dump
+ftc_scam_database_with_backup.tar.gz
+ftc_scam_database_with_backup/
 *.log
 
 # Database
